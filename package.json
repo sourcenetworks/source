@@ -1,0 +1,38 @@
+{
+  "name": "source-boilerplate",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/sourcewifi/source-boilerplate.git",
+  "author": "Source Co.",
+  "license": "UNLICENSED",
+  "repository": "git@github.com:sourcewifi/source-boilerplate.git",
+  "scripts": {
+    "pretest": "yarn lint",
+    "test": "run-p lint tests-only",
+    "tests-only": "mocha test/**/*spec.js",
+    "lint": "eslint ./**/*.{js,jsx}",
+    "sass-prod": "node-sass src/app/styles -o src/app/_css",
+    "sass-watch": "node-sass --watch --source-map-embed  src/app/styles -o src/app/_css",
+    "electron-dev": "electron .",
+    "dev": "run-p sass-watch electron-dev",
+    "build": "yarn sass-prod"
+  },
+  "dependencies": {
+    "babel-preset-airbnb": "^2.1.1",
+    "babel-register": "^6.22.0",
+    "bluebird": "^3.4.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "eslint": "^3.14.0",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.2.0",
+    "node-sass": "^4.3.0",
+    "rimraf": "^2.5.4",
+    "yarn-run-all": "^3.1.1"
+  }  
+}
