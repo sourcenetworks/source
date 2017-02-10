@@ -1,12 +1,27 @@
+// import express from string express
+//
+
+// FIX
+
 const express   =   require('express');
 const firewall  =   require('./firewall');
 
 const app = express();
 
-app.get('/test', function (req, res) {
-  res.send(firewall.testFunction());
+app.get('/', function (req, res) {
+  res.redirect(302, '/hotspot')
 })
 
-app.listen(4040, function () {
-  console.log('Source server running on port 4040...')
+app.get('/terms_accepted', function(req, res) {
+  var ip_addr = req.connection.remoteAddress;
+  var mac = firewall.getMac(ip_addr);
+  firewall.grantAccess(mac);
+})
+
+app.get('/hotspot', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
+})
+
+app.listen(80, function () {
+  console.log('Source is running...')
 })

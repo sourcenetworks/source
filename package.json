@@ -1,11 +1,11 @@
 {
-  "name": "source-boilerplate",
+  "name": "source-router",
   "version": "0.0.1",
   "main": "index.js",
-  "repository": "https://github.com/sourcewifi/source-boilerplate.git",
+  "repository": "https://github.com/sourcewifi/source-router.git",
   "author": "Source Co.",
   "license": "UNLICENSED",
-  "repository": "git@github.com:sourcewifi/source-boilerplate.git",
+  "repository": "git@github.com:sourcewifi/source-router.git",
   "scripts": {
     "pretest": "yarn lint",
     "test": "run-p lint tests-only",
@@ -34,5 +34,5 @@
     "node-sass": "^4.3.0",
     "rimraf": "^2.5.4",
     "yarn-run-all": "^3.1.1"
-  }  
+  }
 }
