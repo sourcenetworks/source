@@ -2,10 +2,9 @@
   "name": "source-router",
   "version": "0.0.1",
   "main": "index.js",
-  "repository": "https://github.com/sourcewifi/source-router.git",
+  "repository": "git@github.com:sourcewifi/source-router.git",
   "author": "Source Co.",
   "license": "UNLICENSED",
-  "repository": "git@github.com:sourcewifi/source-router.git",
   "scripts": {
     "pretest": "yarn lint",
     "test": "run-p lint tests-only",
@@ -20,7 +19,8 @@
   "dependencies": {
     "babel-preset-airbnb": "^2.1.1",
     "babel-register": "^6.22.0",
-    "bluebird": "^3.4.7"
+    "bluebird": "^3.4.7",
+    "express": "^4.14.1"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
