@@ -1,75 +1,44 @@
-// promsify exec sync so you can catch errors]
-// make objects out your commands so they are more modular
+import { promisify } from 'bluebird';
+import { exec, execSync } from 'child_process';
+import _ from 'lodash';
+import {
+  INITIAL_POLICY_COMMANDS,
+  DNS_FORWARDING_COMMANDS,
+  PORT_WHITELISTING_COMMANDS,
+  DOMAIN_WHITELISTING_COMMANDS,
+  CAPTIVE_PORTAL_COMMANDS,
+  ACCESS_GRANTING_COMMAND,
+  ACCESS_REVOKING_COMMAND
+} from './iptables';
 
-const execSync = require('child_process').execSync;
+const execCmd = promisify(exec);
 
-const captivePortalAddress = '192.168.24.1:80';
+export default class Firewall {
+  constructor(options) {
+    // TODO: Update static variables to pull from config file 
+    const captivePortalAddress = '192.168.24.1:80';
+    const whitelistedDomains = ['www.sourcewifi.com'];
+    const whitelistedPorts = ['8080'];    
 
-const whitelist_domains = [
-  'source.com'
-]
+    INITIAL_POLICY_COMMANDS.forEach(execSync);
+    DNS_FORWARDING_COMMANDS.forEach(execSync);
+    _.flatten(whitelistedPorts.map(PORT_WHITELISTING_COMMANDS)).forEach(execSync);
+    _.flatten(whitelistedDomains.map(DOMAIN_WHITELISTING_COMMANDS)).forEach(execSync);
+    CAPTIVE_PORTAL_COMMANDS(captivePortalAddress).forEach(execSync);
 
-const whitelist_ports = [
-]
+  }
 
-function Firewall() {}
+  grantAccess(macAddress) {
+    return execSync(ACCESS_GRANTING_COMMAND(macAddress));
+  }
 
-Firewall.init = function() {
-  // Initial policies
-  execSync('sudo iptables -t filter -N SOURCE_PASS;' +
-           'sudo iptables -t filter -P FORWARD DROP;' +
-           'sudo iptables -t filter -A FORWARD -j SOURCE_PASS;' +
-           'sudo iptables -A FORWARD -j SOURCE_PASS -i eth0;' +
-           'iptables -t nat -A POSTROUTING -p all -o eth0 -j MASQUERADE'
-  );
+  revokeAccess(macAddress) {
+    return execSync(ACCESS_REVOKING_COMMAND(macAddress));
+  }
 
-  // DNS Forwarding
-  execSync('sudo iptables -t filter -I FORWARD -p udp --dport 53 -j ACCEPT;' +
-           'sudo iptables -t filter -I FORWARD -p udp --sport 53 -j ACCEPT;'
-  );
-
-  // Whitelisting
-  whitelist_ports.forEach(function(port) {
-    execSync('sudo iptables -t filter -I FORWARD -p tcp --dport ' + port +
-                ' -j ACCEPT;' +
-             'sudo iptables -t filter -I FORWARD -p tcp --sport ' + port +
-                ' -j ACCEPT;'
-    );
-  });
-
-  whitelist_domains.forEach(function(domain) {
-    execSync('sudo iptables -t filter -I FORWARD -p tcp --dest ' + domain +
-                ' -j ACCEPT;' +
-             'sudo iptables -t filter -I FORWARD -p tcp --src ' + domain +
-                ' -j ACCEPT;'
-    );
-  });
-
-  // Setup forwarding captive portal
-  execSync('sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 ' +
-              '-j DNAT --to-destination ' + captivePortalAddress + ';' +
-           'sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 ' +
-              '-j DNAT --to-destination ' + captivePortalAddress
-  );
-
-  return;
+  getMAC(ipAddress) {
+    return execCmd(`sudo arp -a ${ipAddress} | cut -d " " -f 4`)
+    .then(mac => mac.toString())
+    .then(mac => mac.substring(0, mac.length - 1));
+  }
 }
-
-Firewall.grantAccess = function(mac) {
-  execSync('sudo iptables -t filter -A SOURCE_PASS -m mac --mac-source ' + mac + ' -j ACCEPT;');
-  console.log(mac);
-}
-
-Firewall.revokeAccess = function(mac) {
-  execSync('sudo iptables -t filter -D SOURCE_PASS -m mac --mac-source ' + mac + ' -j ACCEPT;');
-}
-
-Firewall.getMac = function(ip_addr) {
-  mac = execSync('sudo arp -a ' + ip_addr + ' | cut -d " " -f 4');
-  mac = mac.toString();
-  return mac.substring(0, mac.length - 1);
-}
-
-// TODO log traffic
-
-module.exports = Firewall;

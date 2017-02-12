@@ -3,29 +3,31 @@
 
 // FIX
 
-const express = require('express');
-const firewall = require('./firewall');
-var path = require("path");
+import express from 'express';
+import path from 'path';
+import Firewall from './firewall';
 
 const app = express();
+let firewall;
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.redirect(302, '/index')
 })
 
-app.get('/terms_accepted', function(req, res) {
-  var ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  ip_addr = ip_addr.substring(7);
-  var mac = firewall.getMac(ip_addr);
-  firewall.grantAccess(mac);
-  res.sendFile(path.join(__dirname + '/html/terms_accepted.html'));
+app.get('/terms_accepted', (req, res) => {
+  let ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  ipAddress = ipAddress.substring(7);
+
+  return firewall.getMac(ipAddress)
+  .then(firewall.grantAccess)
+  .then(() => res.sendFile(path.join(`${__dirname}/html/terms_accepted.html`)));
+});
+
+app.get('/index', (req, res) => {
+  return res.sendFile(path.join(__dirname + '/html/index.html'));
 })
 
-app.get('/index', function (req, res) {
-  res.sendFile(path.join(__dirname + '/html/index.html'));
-})
-
-app.listen(80, function () {
-  firewall.init();
+app.listen(80, () => {
+  firewall = new Firewall();
   console.log('Source is running...')
-})
+});
