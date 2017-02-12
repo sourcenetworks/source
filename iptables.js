@@ -32,10 +32,10 @@ export CAPTIVE_PORTAL_COMMANDS = (captivePortalAddress) => {
   ];
 };
 
-export ACCESS_GRANTING_COMMAND = (MAC) => {
+export ACCESS_GRANTING_COMMAND = (mac) => {
   return `sudo iptables -t filter -A SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;`
 };
 
-export ACCESS_REVOKING_COMMAND = (MAC) => {
+export ACCESS_REVOKING_COMMAND = (mac) => {
   return `sudo iptables -t filter -D SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;`
 };
