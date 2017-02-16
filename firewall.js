@@ -19,10 +19,11 @@ function Firewall() {}
 Firewall.init = function() {
   // Initial policies
   execSync('sudo iptables -t filter -N SOURCE_PASS;' +
-           'sudo iptables -t filter -P FORWARD DROP;' +
            'sudo iptables -t filter -A FORWARD -j SOURCE_PASS;' +
            'sudo iptables -t filter -A SOURCE_PASS -d 192.168.24.1 -j ACCEPT;' +
+           'sudo iptables -t filter -A FORWARD -d 192.168.24.1 -j ACCEPT;' +
            'sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE;' +
+           'sudo iptables -t filter -P FORWARD DROP;' +
            'sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT'
   );
 
@@ -32,6 +33,29 @@ Firewall.init = function() {
            'sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 ' +
               '-j DNAT --to-destination ' + captivePortalAddress
   );
+
+
+  // DNS Forwarding
+  execSync('sudo iptables -t filter -I FORWARD -p udp --dport 53 -j ACCEPT;' +
+           'sudo iptables -t filter -I FORWARD -p udp --sport 53 -j ACCEPT'
+  );
+
+  // Whitelisting
+  whitelist_ports.forEach(function(port) {
+    execSync('sudo iptables -t filter -I FORWARD -p udp --dport ' + port +
+                ' -j ACCEPT;' +
+             'sudo iptables -t filter -I FORWARD -p udp --sport ' + port +
+                ' -j ACCEPT'
+    );
+  });
+
+  whitelist_domains.forEach(function(domain) {
+    execSync('sudo iptables -t filter -I FORWARD -p udp --dest ' + domain +
+                ' -j ACCEPT;' +
+             'sudo iptables -t filter -I FORWARD -p udp --src ' + domain +
+                ' -j ACCEPT'
+    );
+  });
 
   return;
 }
