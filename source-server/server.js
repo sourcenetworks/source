@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import Firewall from 'firewall';
+import Firewall from 'source-firewall';
 
 const app = express();
 let firewall;
@@ -13,7 +13,7 @@ app.get('/terms_accepted', (req, res) => {
   let ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   ip_addr = ip_addr.substring(7);
 
-  return mac = firewall.getMac(ip_addr);
+  return mac = firewall.getMac(ip_addr)
   .then(firewall.grantAccess())
   .then(() => res.sendFile(path.join(__dirname + '/html/terms_accepted.html')));
 })

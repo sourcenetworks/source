@@ -1,7 +1,7 @@
 {
-  "name": "source-router",
+  "name": "source-firewall",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "firewall.js",
   "repository": "git@github.com:sourcewifi/source-router.git",
   "author": "Source Co.",
   "license": "UNLICENSED",
@@ -12,7 +12,6 @@
     "lint": "eslint ./**/*.{js,jsx}",
     "sass-prod": "node-sass src/app/styles -o src/app/_css",
     "sass-watch": "node-sass --watch --source-map-embed  src/app/styles -o src/app/_css",
-    "electron-dev": "electron .",
     "dev": "run-p sass-watch electron-dev",
     "build": "yarn sass-prod"
   },

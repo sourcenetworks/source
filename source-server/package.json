@@ -1,5 +1,5 @@
 {
-  "name": "source-router",
+  "name": "source-server",
   "version": "0.0.1",
   "main": "index.js",
   "repository": "git@github.com:sourcewifi/source-router.git",
@@ -12,15 +12,16 @@
     "lint": "eslint ./**/*.{js,jsx}",
     "sass-prod": "node-sass src/app/styles -o src/app/_css",
     "sass-watch": "node-sass --watch --source-map-embed  src/app/styles -o src/app/_css",
-    "electron-dev": "electron .",
     "dev": "run-p sass-watch electron-dev",
-    "build": "yarn sass-prod"
+    "build": "yarn sass-prod",
+    "start": "babel-node server.js"
   },
   "dependencies": {
     "babel-preset-airbnb": "^2.1.1",
     "babel-register": "^6.22.0",
     "bluebird": "^3.4.7",
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "source-firewall": "^0.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
