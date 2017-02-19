@@ -20,7 +20,7 @@ export const DHCP_FORWARDING_COMMANDS = [
 
 export function PORT_WHITELISTING_COMMANDS (port) {
   return [
-    `sudo iptables -t filter -I FORWARD -p tcp --dport ${port} -j ACCEPT;`
+    `sudo iptables -t filter -I FORWARD -p tcp --dport ${port} -j ACCEPT;`,
     `sudo iptables -t filter -I FORWARD -p tcp --sport ${port} -j ACCEPT;`
   ];
 };
