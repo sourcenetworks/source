@@ -3,18 +3,22 @@ sudo -i
 
 # Install node, hostapd, dnsmasq
 apt-get -y update
-apt-get -y install nodejs, npm, hostapd, dnsmasq
+apt-get -y install nodejs
+apt-get -y install npm
+apt-get -y install hostapd
+apt-get -y install dnsmasq
 
 # Distribute configuration files
+# TODO: this should not require password - need public release
 git clone https://github.com/sourcewifi/source-router
 cp source-router/source-config/dnsmasq.conf /etc/dnsmasq.conf
 cp source-router/source-config/hosts /etc/hosts
-cp source-router/source-config/hostapd.conf /etc/hosts/hostpad.conf
+cp source-router/source-config/hostapd.conf /etc/hostapd/hostpad.conf
 cp source-router/source-config/interfaces /etc/network/interfaces
 
 # Project dependencies; run a subprocesses
-(cd source-server && npm install)
-(cd source-firewall && npm install)
+(cd source-router/source-firewall && npm install && npm link)
+(cd source-router/source-server && npm link source-firewall && npm install)
 
 # Start install
 sudo ifdown wlan0
@@ -31,6 +35,7 @@ sudo ifup wlan0
 # Bring up hostapd, dnsmasq
 service dnsmasq start
 service hostapd start
+(cd source-router/source-server && npm start)
 
 # Get node server to start on boot
 # echo "sudo node ~/source-firewall/server.js" > rc.local
