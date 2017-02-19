@@ -44,3 +44,6 @@ build
 
 # Remote sync
 .remote-sync.json
+
+# MacOS
+.DS_Store
