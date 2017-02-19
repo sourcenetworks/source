@@ -1,7 +1,7 @@
 {
   "name": "source-server",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "git@github.com:sourcewifi/source-router.git",
   "author": "Source Co.",
   "license": "UNLICENSED",
@@ -10,10 +10,6 @@
     "test": "run-p lint tests-only",
     "tests-only": "mocha test/**/*spec.js",
     "lint": "eslint ./**/*.{js,jsx}",
-    "sass-prod": "node-sass src/app/styles -o src/app/_css",
-    "sass-watch": "node-sass --watch --source-map-embed  src/app/styles -o src/app/_css",
-    "dev": "run-p sass-watch electron-dev",
-    "build": "yarn sass-prod",
     "start": "babel-node server.js"
   },
   "dependencies": {
