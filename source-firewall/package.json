@@ -9,11 +9,7 @@
     "pretest": "yarn lint",
     "test": "run-p lint tests-only",
     "tests-only": "mocha test/**/*spec.js",
-    "lint": "eslint ./**/*.{js,jsx}",
-    "sass-prod": "node-sass src/app/styles -o src/app/_css",
-    "sass-watch": "node-sass --watch --source-map-embed  src/app/styles -o src/app/_css",
-    "dev": "run-p sass-watch electron-dev",
-    "build": "yarn sass-prod"
+    "lint": "eslint ./**/*.{js,jsx}"
   },
   "dependencies": {
     "babel-preset-airbnb": "^2.1.1",
@@ -30,7 +26,6 @@
     "eslint-plugin-import": "^2.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
-    "node-sass": "^4.3.0",
     "rimraf": "^2.5.4",
     "yarn-run-all": "^3.1.1"
   }
