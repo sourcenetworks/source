@@ -20,32 +20,32 @@ export const DHCP_FORWARDING_COMMANDS = [
 
 export function PORT_WHITELISTING_COMMANDS (port) {
   return [
-    'sudo iptables -t filter -I FORWARD -p tcp --dport ${port} -j ACCEPT;',
-    'sudo iptables -t filter -I FORWARD -p tcp --sport ${port} -j ACCEPT;'
+    `sudo iptables -t filter -I FORWARD -p tcp --dport ${port} -j ACCEPT;`
+    `sudo iptables -t filter -I FORWARD -p tcp --sport ${port} -j ACCEPT;`
   ];
 };
 
 export function DOMAIN_WHITELISTING_COMMANDS (domain) {
   return [
-    'sudo iptables -t filter -I FORWARD -p tcp --dest ${domain} -j ACCEPT;',
-    'sudo iptables -t filter -I FORWARD -p tcp --src ${domain} -j ACCEPT;'
+    `sudo iptables -t filter -I FORWARD -p tcp --dest ${domain} -j ACCEPT;`,
+    `sudo iptables -t filter -I FORWARD -p tcp --src ${domain} -j ACCEPT;`
   ];
 };
 
 export function CAPTIVE_PORTAL_COMMANDS (captivePortalAddress) {
   return [
-    'sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j DNAT --to-destination ${captivePortalAddress};',
-    'sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j DNAT --to-destination ${captivePortalAddress};'
+    `sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j DNAT --to-destination ${captivePortalAddress};`,
+    `sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j DNAT --to-destination ${captivePortalAddress};`
   ];
 };
 
 export function ACCESS_GRANTING_COMMAND (mac) {
   return [
-    'sudo iptables -t filter -A SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;',
-    'sudo iptables -t nat -I PREROUTING -m mac --mac-source ${mac} -j RETURN'
+    `sudo iptables -t filter -A SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;`,
+    `sudo iptables -t nat -I PREROUTING -m mac --mac-source ${mac} -j RETURN`
   ]
 };
 
 export function ACCESS_REVOKING_COMMAND (mac) {
-  return 'sudo iptables -t filter -D SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;'
+  return `sudo iptables -t filter -D SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;`
 };
