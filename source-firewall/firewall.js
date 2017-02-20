@@ -27,15 +27,14 @@ export default class Firewall {
     _.flatten(whitelistedPorts.map(PORT_WHITELISTING_COMMANDS)).forEach(execSync);
     _.flatten(whitelistedDomains.map(DOMAIN_WHITELISTING_COMMANDS)).forEach(execSync);
     CAPTIVE_PORTAL_COMMANDS(captivePortalAddress).forEach(execSync);
-
   }
 
   grantAccess(macAddress) {
-    return execSync(ACCESS_GRANTING_COMMAND(macAddress));
+    return execSync(_.flatten(ACCESS_GRANTING_COMMAND(macAddress)));
   }
 
   revokeAccess(macAddress) {
-    return execSync(ACCESS_REVOKING_COMMAND(macAddress));
+    return execSync(_.flatten(ACCESS_REVOKING_COMMAND(macAddress)));
   }
 
   getMAC(ipAddress) {
