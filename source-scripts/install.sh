@@ -40,4 +40,4 @@ service hostapd start
 # Would be nice to find a way around this
 ifconfig wlan0 192.168.24.1
 
-(cd source-router/source-server && npm start)
+npm --prefix ./source-router/source-server start
