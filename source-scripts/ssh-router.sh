@@ -1,5 +1,8 @@
 # !/bin/bash
 
+
+# @TODO
+
 # Ask for input (or do this before and not include it as part of the setup script)
 # (what OS is on the client, what OS on router, what is hardware on the router)
 
@@ -44,6 +47,12 @@ expect "\$"
 send "exit"
 ")
 
+# @TODO
+# --> Enter SSH info from the router
+# -------> Once SSH'ed in set up rsa dsa key gen
+# -------> Correctly cmod stuff (if this stuff has not already been setup before)
+
+
 # SCP the install file onto the computer
 source ./install.sh
 
@@ -57,9 +66,6 @@ source ./gethsetup.sh
 
 # ----------
 
-# --> Enter SSH info from the router
-# -------> Once SSH'ed in set up rsa dsa key gen
-# -------> Correctly cmod stuff (if this stuff has not already been setup before)
 
 # --> find whatever the router IP and or raspberry pi IP (need this info for SCP and SSH'ing)
 # --> Decide what files are going to be scp'ed and what still needs to be executed thru command line (once files are on router)
