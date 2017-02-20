@@ -42,8 +42,8 @@ export function CAPTIVE_PORTAL_COMMANDS (captivePortalAddress) {
 export function ACCESS_GRANTING_COMMAND (mac) {
   return [
     `sudo iptables -t filter -A SOURCE_PASS -m mac --mac-source ${mac} -j ACCEPT;`,
-    `sudo iptables -t nat -I PREROUTING -m mac --mac-source ${mac} -j RETURN`
-  ]
+    `sudo iptables -t nat -I PREROUTING -m mac --mac-source ${mac} -j RETURN;`
+  ];
 };
 
 export function ACCESS_REVOKING_COMMAND (mac) {

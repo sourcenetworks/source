@@ -34,6 +34,7 @@ export default class Firewall {
   }
 
   revokeAccess(macAddress) {
+    console.log(_.flatten(ACCESS_REVOKING_COMMAND(macAddress)));
     return execSync(_.flatten(ACCESS_REVOKING_COMMAND(macAddress)));
   }
 
