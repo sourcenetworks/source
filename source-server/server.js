@@ -14,7 +14,7 @@ app.get('/terms_accepted', (req, res) => {
   ip_addr = ip_addr.substring(7);
 
   return mac = firewall.getMAC(ip_addr)
-  .then(firewall.grantAccess(value))
+  .then(mac => firewall.grantAccess(mac))
   .then(() => res.sendFile(path.join(__dirname + '/html/terms_accepted.html')));
 })
 

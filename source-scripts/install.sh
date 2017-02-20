@@ -5,6 +5,7 @@ sudo -i
 
 # Install node, hostapd, dnsmasq
 apt-get -y update
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 apt-get -y install nodejs
 apt-get -y install npm
 apt-get -y install hostapd
@@ -21,18 +22,10 @@ cp source-router/source-config/hostapd.conf /etc/hostapd/hostapd.conf
 cp source-router/source-config/interfaces /etc/network/interfaces
 
 # Project dependencies; run a subprocesses
-# TODO: link needs to be run directly in the directory
-cd source-router/source-firewall
-npm install
-sudo npm link
-cd ..
-cd ..
-
-cd source-router/source-server
-npm link source-firewall
-npm install
-cd ..
-cd ..
+npm --prefix ./source-router/source-firewall install
+sudo npm --prefix ./source-router/source-firewall link
+npm --prefix ./source-router/source-server link source-firewall
+npm --prefix ./source-router/source-server install
 
 # IPv4 packet forwarding
 sed -i '/#net.ipv4.ip_forward=1/c\net.ipv4.ip_forward=1' /etc/sysctl.conf
@@ -43,12 +36,8 @@ sed -i '/#DAEMON_CONF=""/c\DAEMON_CONF="/etc/hostapd/hostapd.conf"' /etc/default
 # Bring up hostapd, dnsmasq
 service dnsmasq start
 service hostapd start
-(cd source-router/source-server && npm start)
 
 # Would be nice to find a way around this
 ifconfig wlan0 192.168.24.1
 
-# Get node server to start on boot
-# echo "sudo node ~/source-firewall/server.js" > rc.local
-# Restart and serve portal; TODO: is this necessary?
-# reboot
+(cd source-router/source-server && npm start)
