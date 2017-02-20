@@ -30,15 +30,15 @@ export default class Firewall {
 
   }
 
-  function grantAccess(macAddress) {
+  grantAccess(macAddress) {
     return execSync(ACCESS_GRANTING_COMMAND(macAddress));
   }
 
-  function revokeAccess(macAddress) {
+  revokeAccess(macAddress) {
     return execSync(ACCESS_REVOKING_COMMAND(macAddress));
   }
 
-  function getMAC(ipAddress) {
+  getMAC(ipAddress) {
     return execCmd(`sudo arp -a ${ipAddress} | cut -d " " -f 4`)
     .then(mac => mac.toString())
     .then(mac => mac.substring(0, mac.length - 1));

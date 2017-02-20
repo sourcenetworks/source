@@ -13,7 +13,7 @@ app.get('/terms_accepted', (req, res) => {
   let ip_addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   ip_addr = ip_addr.substring(7);
 
-  return mac = firewall.getMac(ip_addr)
+  return mac = firewall.getMAC(ip_addr)
   .then(firewall.grantAccess())
   .then(() => res.sendFile(path.join(__dirname + '/html/terms_accepted.html')));
 })
