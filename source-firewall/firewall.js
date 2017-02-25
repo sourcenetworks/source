@@ -30,13 +30,11 @@ export default class Firewall {
   }
 
   grantAccess(macAddress) {
-    console.log("test " + _.flatten(ACCESS_GRANTING_COMMAND(macAddress)));
     return _.flatten(ACCESS_GRANTING_COMMAND(macAddress)).forEach(execSync);
   }
 
   revokeAccess(macAddress) {
-    console.log("test " + _.flatten(ACCESS_REVOKING_COMMAND(macAddress)));
-    return execSync(_.flatten(ACCESS_REVOKING_COMMAND(macAddress)));
+    return _.flatten(ACCESS_REVOKING_COMMAND(macAddress)).forEach(execSync);
   }
 
   getMAC(ipAddress) {
