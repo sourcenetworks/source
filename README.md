@@ -17,4 +17,4 @@ To stop Source, run:
 ./bin/source stop
 ```
 
-Learn more at about Source at sourcewifi.com/become-a-provider/.
+Learn more at about Source at [sourcewifi.com/become-a-provider/](sourcewifi.com/become-a-provider/).
