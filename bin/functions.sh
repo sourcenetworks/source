@@ -1,8 +1,6 @@
-__source_pid
-
 source_start () {
   echo "Source is starting!"
-  (sudo npm --prefix ./source/server babel-node index.js)
+  (npm --prefix ./server start)
 }
 
 source_stop () {
