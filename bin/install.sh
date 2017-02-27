@@ -19,10 +19,10 @@ install_requirements () {
 
 install_source () {
   git clone https://github.com/sourcewifi/source
-  sudo cp source/source-config/dnsmasq.conf /etc/dnsmasq.conf
-  sudo cp source/source-config/hosts /etc/hosts
-  sudo cp source/source-config/hostapd.conf /etc/hostapd/hostapd.conf
-  sudo cp source/source-config/interfaces /etc/network/interfaces
+  sudo cp source/conf/dnsmasq.conf /etc/dnsmasq.conf
+  sudo cp source/conf/hosts /etc/hosts
+  sudo cp source/conf/hostapd.conf /etc/hostapd/hostapd.conf
+  sudo cp source/conf/interfaces /etc/network/interfaces
 
   sudo npm --prefix ./source/lib/source-firewall install
   (cd source/lib/source-firewall; sudo npm link)
