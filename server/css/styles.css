@@ -1,0 +1,53 @@
+.Welcome-to-Source {
+  width: 193px;
+  height: 27px;
+  font-family: Avenir;
+  font-size: 20px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: #42a5f5;
+}
+
+.Source-is-a-ubiquito {
+  width: 308.6px;
+  height: 168px;
+  font-family: Avenir-Book;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.71;
+  letter-spacing: 0.2px;
+  color: #4a4e52;
+}
+
+.Rectangle-4 {
+  width: 306px;
+  height: 45px;
+  border-radius: 3px;
+  background-color: #42a5f5;
+}
+
+.Get-started-for-free {
+  font-family: Avenir;
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: #ffffff; }
+
+
+.balloon2 {
+  /* This is not doing anything */
+  width: 78px;
+  height: 106px;
+  object-fit: contain;
+}
+
