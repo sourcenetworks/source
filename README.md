@@ -1,6 +1,6 @@
 # Source WiFi
 
-![Source](img/source.png | width=50)
+![Source](img/source.png)
 
 To get a fresh install of Source, run:
 
