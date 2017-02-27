@@ -18,4 +18,4 @@ To stop Source, run:
 ./bin/source stop
 ```
 
-Learn more about Source at [sourcewifi.com/become-a-provider/](sourcewifi.com/become-a-provider/).
+Learn more about Source at [sourcewifi.com/become-a-provider/](http://sourcewifi.com/become-a-provider/).
