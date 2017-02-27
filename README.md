@@ -3,7 +3,7 @@
 To get a fresh install of Source, run:
 
 ```
-curl http://sourcewifi.com | sudo bash
+curl http://sourcewifi.com | bash
 ```
 
 Then to start Source, run:
@@ -17,4 +17,4 @@ To stop Source, run:
 ./bin/source stop
 ```
 
-Learn more at about Source at [sourcewifi.com/become-a-provider/](sourcewifi.com/become-a-provider/).
+Learn more about Source at [sourcewifi.com/become-a-provider/](sourcewifi.com/become-a-provider/).
