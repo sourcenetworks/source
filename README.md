@@ -1,4 +1,6 @@
-# How to install
+# Get setup with Source
+
+To get a fresh install of Source, run:
 
 ```
 curl http://sourcewifi.com | sudo bash
@@ -14,3 +16,5 @@ To stop Source, run:
 ```
 ./bin/source stop
 ```
+
+Learn more at about Source at sourcewifi.com/become-a-provider/.
