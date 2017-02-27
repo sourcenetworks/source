@@ -1,9 +1,11 @@
-# Get setup with Source
+# Source WiFi
+
+![Source](/img/source.png = 250)
 
 To get a fresh install of Source, run:
 
 ```
-curl http://sourcewifi.com | bash
+curl http://sourcewifi.com/install.sh | sh
 ```
 
 Then to start Source, run:
