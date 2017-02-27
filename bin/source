@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 __script=${BASH_SOURCE[0]}
 

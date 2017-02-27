@@ -8,17 +8,35 @@
 #     Raspbian 4.4
 #
 
+# TODO: update for versioning
 install_requirements () {
   sudo apt-get -y update
-  sudo curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-  sudo apt-get -y install nodejs
-  sudo apt-get -y install npm
-  sudo apt-get -y install hostapd
-  sudo apt-get -y install dnsmasq
+
+  PGK_OK=$(dpkg -s nodejs | grep "install ok installed")
+  if [ "" = "$PKG_OK" ]; then
+    sudo curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    sudo apt-get -y install nodejs
+  fi
+
+  PGK_OK=$(dpkg -s npm | grep "install ok installed")
+  if [ "" = "$PKG_OK" ]; then
+    sudo curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    sudo apt-get -y install npm
+  fi
+
+  PGK_OK=$(dpkg -s hostpad | grep "install ok installed")
+  if [ "" = "$PKG_OK" ]; then
+    sudo apt-get -y install hostapd
+  fi
+
+  PGK_OK=$(dpkg -s dnsmasq | grep "install ok installed")
+  if [ "" = "$PKG_OK" ]; then
+    sudo apt-get -y install dnsmasq
+  fi
 }
 
 install_source () {
-  git clone https://github.com/sourcewifi/source
+  git clone https://github.com/sourcenetworks/source
   sudo cp source/conf/dnsmasq.conf /etc/dnsmasq.conf
   sudo cp source/conf/hosts /etc/hosts
   sudo cp source/conf/hostapd.conf /etc/hostapd/hostapd.conf
@@ -45,10 +63,14 @@ start_services () {
 }
 
 main () {
-  install_requirements
+  # TODO: fix
+  PGK_OK=$(dpkg -s hostapd | grep "install ok installed")
+  if [ "" = "$PKG_OK" ]; then
+    install_requirements
+  fi
+
   install_source
   start_services
-  start_source
 }
 
 main
