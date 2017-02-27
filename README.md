@@ -1,8 +1,16 @@
-# source-router
+# How to install
 
-source-config contains static configuration files that the install script will distribute
-source-scripts contains install and over-the-air update scripts
-source-firewall contains a firewall package
-source-server contains the source server
+```
+curl http://sourcewifi.com | sudo bash
+```
 
-Built with the assumption that source-router and install.sh are in the *same* directory
+Then to start Source, run:
+
+```
+./bin/source start
+```
+
+To stop Source, run:
+```
+./bin/source stop
+```
