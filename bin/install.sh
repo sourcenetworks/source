@@ -18,16 +18,16 @@ install_requirements () {
 }
 
 install_source () {
-  git clone https://github.com/sourcewifi/source-router
-  sudo cp source-router/source-config/dnsmasq.conf /etc/dnsmasq.conf
-  sudo cp source-router/source-config/hosts /etc/hosts
-  sudo cp source-router/source-config/hostapd.conf /etc/hostapd/hostapd.conf
-  sudo cp source-router/source-config/interfaces /etc/network/interfaces
+  git clone https://github.com/sourcewifi/source
+  sudo cp source/conf/dnsmasq.conf /etc/dnsmasq.conf
+  sudo cp source/conf/hosts /etc/hosts
+  sudo cp source/conf/hostapd.conf /etc/hostapd/hostapd.conf
+  sudo cp source/conf/interfaces /etc/network/interfaces
 
-  sudo npm --prefix ./source-router/source-firewall install
-  (cd source-router/source-firewall; sudo npm link)
-  (cd source-router/source-server; sudo npm link source-firewall)
-  sudo npm --prefix ./source-router/source-server install
+  sudo npm --prefix ./source/lib/source-firewall install
+  (cd source/lib/source-firewall; sudo npm link)
+  (cd source/server; sudo npm link source-firewall)
+  sudo npm --prefix ./source/server install
 
   # IPv4 packet forwarding
   sudo sed -i '/#net.ipv4.ip_forward=1/c\net.ipv4.ip_forward=1' /etc/sysctl.conf
@@ -42,10 +42,6 @@ start_services () {
   sudo ifconfig wlan0 192.168.24.1
   sudo service dnsmasq restart
   sudo service hostapd restart
-}
-
-start_source () {
-  sudo npm --prefix ./source-router/source-server start
 }
 
 main () {
