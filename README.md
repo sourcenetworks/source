@@ -1,5 +1,6 @@
-# Source WiFi ![Source](img/source.png)
+![Source](img/source.png)
 
+# Source WiFi
 To get a fresh install of Source, run:
 
 ```
