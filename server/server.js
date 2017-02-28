@@ -5,6 +5,8 @@ import Firewall from 'source-firewall';
 const app = express();
 let firewall;
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
   res.redirect(302, 'http://hotspot.localnet/index')
 })
@@ -15,11 +17,11 @@ app.get('/terms_accepted', (req, res) => {
 
   return mac = firewall.getMAC(ip_addr)
   .then(mac => firewall.grantAccess(mac))
-  .then(() => res.sendFile(path.join(__dirname + '/html/terms_accepted.html')));
+  .then(() => res.sendFile(path.join(__dirname + '/public/terms_accepted.html')));
 })
 
 app.get('/index', (req, res) => {
-  res.sendFile(path.join(__dirname + '/html/index.html'));
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 })
 
 app.listen(80, () => {

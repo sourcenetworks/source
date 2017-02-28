@@ -23,6 +23,8 @@ __app_home=$(cd $(dirname ${__target})/.. >&-; pwd -P)
 source "${__app_home}"/bin/functions.sh
 
 case ${1} in
-  start) source_start;;
+  start) source_start ;;
   stop) source_stop ;;
+  restart) source_restart ;;
+  status) source_status ;;
 esac

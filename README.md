@@ -7,7 +7,7 @@ To get a fresh install of Source, run:
 curl http://sourcewifi.com/install.sh | sh
 ```
 
-Then to start Source, run:
+From your ```Source``` directory, start Source by running:
 
 ```
 ./bin/source start
@@ -16,6 +16,11 @@ Then to start Source, run:
 To stop Source, run:
 ```
 ./bin/source stop
+```
+
+You can check the status of Source with:
+```
+./bin/source status
 ```
 
 Learn more about Source at [sourcewifi.com/become-a-provider/](http://sourcewifi.com/become-a-provider/).
