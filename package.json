@@ -1,8 +1,8 @@
 {
-  "name": "source-server",
+  "name": "source",
   "version": "0.0.1",
-  "main": "server.js",
-  "repository": "git@github.com:sourcewifi/source-router.git",
+  "main": "./build/index.js",
+  "repository": "git@github.com:sourcenetworks/source.git",
   "author": "Source Co.",
   "license": "UNLICENSED",
   "scripts": {
@@ -10,14 +10,15 @@
     "test": "run-p lint tests-only",
     "tests-only": "mocha test/**/*spec.js",
     "lint": "eslint ./**/*.{js,jsx}",
-    "start": "babel-node server.js"
+    "build": "./node_modules/babel-cli/bin/babel.js ./src -d ./build",
+    "start": "node ./build"
   },
   "dependencies": {
+    "@sourcenetworks/node-firewall" : "0.0.2",
     "babel-preset-airbnb": "^2.1.1",
     "babel-register": "^6.22.0",
     "bluebird": "^3.4.7",
-    "express": "^4.14.1",
-    "source-firewall": "^0.0.1"
+    "express": "^4.14.1"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
