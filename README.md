@@ -4,7 +4,7 @@
 To get a fresh install of Source, run:
 
 ```
-curl http://sourcewifi.com/install.sh | sh
+curl https://sourcewifi.com/install.sh | sh
 ```
 
 From your ```Source``` directory, start Source by running:
