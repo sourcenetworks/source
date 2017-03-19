@@ -23,4 +23,4 @@ You can check the status of Source with:
 ./bin/source status
 ```
 
-Learn more about Source at [sourcewifi.com/become-a-provider/](http://sourcewifi.com/become-a-provider/).
+Learn more about Source at [sourcewifi.com/become-a-provider/](https://sourcewifi.com/become-a-provider/).

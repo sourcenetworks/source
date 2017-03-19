@@ -17,6 +17,8 @@ app.get('/terms_accepted', (req, res) => {
 
   return mac = firewall.getMAC(ip_addr)
   .then(mac => firewall.grantAccess(mac))
+
+
   .then(() => res.sendFile(path.join(__dirname + '/public/terms_accepted.html')));
 })
 
