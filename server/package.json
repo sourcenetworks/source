@@ -2,8 +2,8 @@
   "name": "source-server",
   "version": "0.0.1",
   "main": "server.js",
-  "repository": "git@github.com:sourcewifi/source-router.git",
-  "author": "Source Co.",
+  "repository": "git@github.com:sourcenetworks/source-router.git",
+  "author": "Source Networks Inc.",
   "license": "UNLICENSED",
   "scripts": {
     "pretest": "yarn lint",
