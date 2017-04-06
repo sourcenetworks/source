@@ -20,7 +20,8 @@ In future -> Centralized Server to handle hops
 In future -> Make the iptable/accounting table thing more robust
 
 @TODO: add Mongoose to this (and set it up thru scripts)
-@TODO: create a model for the accounting table + MACAddresses
+@TODO: set up the flow to update the crap
+@DONE: create a model for the accounting table + MACAddresses
        + payment information (in Background, make sure these things are
          being posted to the MongoDB instance/
        + need to define the interface for this
@@ -49,7 +50,8 @@ app.get('/index', (req, res) => {
 })
 
 app.listen(80, () => {
-  // firewall = new Firewall();
+  firewall = new Firewall()
+  // @TODO: Logic to set interval for stuff grabbing the IP Table business
   console.log('Source is running...');
 
 })
