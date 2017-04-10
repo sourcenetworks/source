@@ -19,9 +19,11 @@ export default ({ body, title }) => {
         <div id="root">${body}</div>
       </body>
 
+      <script src="/bundle.js"></script>
     </html>
+
+
   `;
 };
 
-// <script src="/assets/bundle.js"></script>
 // Why is webpack necessary?
