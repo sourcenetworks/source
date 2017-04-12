@@ -11,6 +11,7 @@ import template from './template';
 import acct_mid from './accounting-middleware';
 import getStatisWithDelay from './accounting';
 import Firewall from '@sourcenetworks/node-firewall';
+import Wallet from './wallet';
 
 // DB stuff
 import mongoose from 'Mongoose';
@@ -22,12 +23,11 @@ let firewall;
 
 /*
   @TODO Fix webpack
-  @done Do the accounting/writing to DB routes
-  @done     -> Create new client in route
-  @done     -> Subtask 1 -> accounting js
-  @done     -> Create new client in route
   @TODO Payments and such
   @TODO Integrate socket.io
+  // @TODO: use node-cron https://github.com/kelektiv/node-cron
+  // @TODO: generate a seed on the server side and pass it over?
+  //      just need to associate mac address and wallet address
 */
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,8 +48,7 @@ app.get('/terms_accepted', (req, res) => {
   ip_addr = ip_addr.substring(7);
 
 
-  //@TODO generate a seed on the server side and pass it over?
-  //      just need to associate mac address and wallet address
+
   return mac = firewall.getMAC(ip_addr).
     then(acct_mid.createClient(mac).
     then(mac => firewall.grantAccess(mac).
@@ -68,11 +67,29 @@ app.get('/index', (req, res) => {
   ));
 })
 
+app.post('/provider', (req, res) => {
+  const { name, email, password } = req.body;
+  var wallet = Wallet.createAccount(password);
+
+  provider = new Provider({
+    name: name,
+    email: email,
+    verified: Boolean,
+    password: password,
+    mnemonic: wallet.keystore.mnemonic,
+    ethereum_addresses: wallet.keystore.addresses,
+    ethereum_privatekeys: wallet.keystore.pwDerivedKey,
+  });
+
+  provider.save();
+
+  return res.send({ name, email, phone, });
+})
+
 app.listen(8080, () => {
   // @NOTE Uncomment -> Joe's stuff
   firewall = new Firewall();
 
-  // @TODO: use node-cron https://github.com/kelektiv/node-cron
   waitOneHour(){
     date = Date();
     setTimeOut(() => acct_mid.createTimeSlice(date, waitOneHour), 60*60*60*1000);

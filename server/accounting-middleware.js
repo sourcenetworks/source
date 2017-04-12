@@ -10,7 +10,6 @@ import _ from 'lodash';
        are stored.
 */
 
-
 const { Client, Provider, Session, TimeSlice} = Models();
 
 module.exports = {
@@ -18,9 +17,9 @@ module.exports = {
     const client = new Client({
       MACAddress: macAddress,
       Ethereum_Address: ethAddress,
-      Contacted_Node: NO,
-      Allowed: NO,
-      Free: NO,
+      Contacted_Node: false,
+      Allowed: false,
+      Free: false,
     });
 
     return client.save();
@@ -51,8 +50,6 @@ module.exports = {
     callback();
   }
 
-  // @TODO: @Update to when a session is over!!!!!, needs to be added to
-  //        the past sessions part of an object
   addSessionToClient(macAdd, field, data) {
     query = { MACAddress: macAdd };
 

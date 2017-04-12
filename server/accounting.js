@@ -4,25 +4,14 @@ import dateTime from 'node-dateTime';
 import { exec, execSync} from 'child_process';
 import Acct from './accounting-middleware';
 import _ from 'lodash';
+import Wallet from './wallet';
 
-/**
-@done: Re -> Lots of repeated code with IN and OUT
-@done: Re -> actually to do whatever shit
-@done: Refactor to create an actual Accounting object -> is there a standard?
-@done: This should be in server, separate file
-@done: Re -> pass back variables
-@done: Evolve into place where functions used for interfacing with the Firewall
-       live, and writing to DB
-@done 1. The accounting object for one single moment in time
-@done 2. There should be a list of allowed MAC Addresses,
-        and then log any that are not supposed to be on there.
-@done: Need to do something with the unallowed MAC Addresses
-**/
+// @TODO: Still need to integrate ethereum part checking payment
+// @TODO: Ethereum/payment checking
+// @TODO: create a way for devices to get on for free
 
-const execCmd = promisify(exec);
 const PIPE = '|';
 const NOT = '-v';
-const GREP_HEAD = 'grep pkts';
 const GREP_REMOVE_CHAIN = 'grep -v Chain';
 const REG_EX_MAC = '^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$';
 const REG_EX_IP = '[0-9]+.[0-9]+.[0-9]+.[0-9]+';
@@ -90,7 +79,6 @@ getByteCount(output) {
     then(split_words => _.toNumber(split_words[1]));
 }
 
-// @TODO: Still need to integrate ethereum part checking payment
 /***
   @function: Writes to DB the people that have interacted with the port
   @param: Port we should look at (usually going to be 8545)
@@ -106,9 +94,11 @@ getStatsToPort(port, date, output) {
       then(session => _.includes(session, mac)).
       then(result => {
         if (!result) {
-          // @TODO: see if they paid with some address (other lib?)
-          // then(bytes => createSession(date, mac, bytes);
-          Client.find(mac).update({ Contacted_Node: true });
+          var client = Client.find({MACAddress: mac}).update({ Contacted_Node: true });
+          var fromAdd = client.Ethereum_Address;
+          Wallet.getTransactionToRouter(myAdd, fromAdd).
+            then(amount => amountToBytes(amount)).
+            then(bytes => createSession(date, mac, bytes);
         }
       });
       port_output = execSync(port_output + PIPE + 'grep ' + NOT + mac + '-m 1');
@@ -133,11 +123,10 @@ convertMACAddressStatsToJSON(rightNow){
   return JSON.stringify(rightNow);
 }
 
-// @TODO: Ethereum/payment checking
+
+
 /***
   @function: filters from background_lib and takes the payments
     --> The corresponding MACAddresses that we have with ethereum wallet
     --> Sets the time alloted
 ***/
-
-// @TODO: create a way for devices to get on for free
