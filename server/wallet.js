@@ -1,16 +1,17 @@
 import Source from '@sourcenetworks/background-lib';
 import Promise from 'bluebird';
 import Models from './models';
-import request from 'https';
+import https from 'https';
 
 const { Client, Provider, Session, TimeSlice} = Models();
 
+const BYTES_IN_A_GIG = 1000000000;
+const BYTES_IN_THIRD_GIG_INT = 333333333;
+const GLOBAL_FEE_USD_PER_GIG = 3; // $3 per GB -> what is the 1 price
+const GLOBAL_FEE_USD_PER_THIRD_GIG = 1; // $3 per GB -> what is the 1 price
+
 var addresses;
 var web3;
-const BYTES_IN_A_GIG = 1000000000;
-const GLOBAL_FEE_USD = 3; // $3 per GB -> what is the 1 price
-
-// Currency constants
 
 module.exports = {
 
@@ -76,15 +77,15 @@ module.exports = {
     }
   }
 
-  // @NOTE Needs to be expanded to accept arbitrary payments and currencies
-  ethToBytes(ethAmount) {
-    var eth_ratio = getEthToCurrencyRatio('eth', 'usd');
-    var total_usd = ethAmount * eth_ratio;
-    return (total_usd/GLOBAL_FEE_USD) * BYTES_IN_A_GIG;;
+  tokenToBytes(tokenAmount) {
+    var eth_ratio = getTokenToCurrencyRatio('eth', 'usd');
+    var total_usd = tokenAmount * eth_ratio;
+    return (total_usd/GLOBAL_FEE_USD_PER_THIRD_GIG) * BYTES_IN_THIRD_GIG_INT;;
   }
 
 }
 
+// @NOTE dApp this stuff up doe
 function getTokenToCurrencyRatio(token, fiat) {
   const options = {
     hostname: 'coinmarketcap-nexuist.rhcloud.com',
