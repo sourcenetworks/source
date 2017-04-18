@@ -14,6 +14,9 @@ export default class App extends Component {
             <a href="https://sourcewifi.com">www.sourcewifi.com</a>.
         </h3>
         <a href="/terms_accepted">Access Source</a>
+        // Add coin base + stripe integration + '
+        // hopefully with Apple Pay here as well
+        // 
         {/* @TODO: I don't see this QR Code
         <QRCode value="0xe46a82035de48a19d9325cf43aa969e6b8cda978"
           bgColor={"#ffffff"}
